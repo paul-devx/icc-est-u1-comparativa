@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+/*import java.util.ArrayList;
 import java.util.List;
 
 public class Generador {
@@ -12,4 +12,24 @@ public class Generador {
         }
         return list;  
     }
+}*/
+
+import java.util.Random;
+
+public class Generador {
+
+    public static int[] generate(int sample) {
+
+        int[] arreglo = new int[sample];
+        Random random = new Random();
+
+        for (int i = 0; i < sample; i++) {
+            arreglo[i] = random.nextInt(sample + 1);
+        }
+        return arreglo;
+    }
 }
+
+
+
+

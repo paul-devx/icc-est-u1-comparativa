@@ -1,10 +1,17 @@
+
+import java.util.Locale;
+
 public class Results {
 
     private String funcionName;
     private long duracion;
-    private String sample;
+    private int sample;
 
-    public Results(String funcionName, long duracion, String sample) {
+    public Results(
+            String funcionName,
+            long duracion,
+            int sample) {
+
         this.funcionName = funcionName;
         this.duracion = duracion;
         this.sample = sample;
@@ -14,30 +21,30 @@ public class Results {
         return funcionName;
     }
 
-    public void setFuncionName(String funcionName) {
-        this.funcionName = funcionName;
-    }
-
     public long getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(long duracion) {
-        this.duracion = duracion;
-    }
-
-    public String getSample() {
+    public int getSample() {
         return sample;
     }
 
-    public void setSample(String sample) {
-        this.sample = sample;
+    public double getDuracionMilisegundos() {
+        return duracion / 1_000_000.0;
     }
 
     @Override
     public String toString() {
-        long duracionSegundos = duracion / 1000000000;
-        return "Results [funcionName=" + funcionName + ", duracion=" + duracionSegundos + " s, sample=" + sample + "]";
-    }
 
+        return String.format(Locale.US,
+            "Results [%s, duration=%dns, %.6fms, sample=%s]",
+            funcionName,
+            duracion,
+            getDuracionMilisegundos(),
+            String.format(Locale.US, "%,d", sample)
+                    .replace(',', '.')
+        );
+    }
 }
+
+
