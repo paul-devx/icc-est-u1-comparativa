@@ -8,21 +8,15 @@ public class MetodosOrd {
     public void sortBubble(int[] arreglo) {
 
         for (int i = 0; i < arreglo.length - 1; i++) {
-
             boolean swapped = false;
-
             for (int j = 0; j < arreglo.length - 1 - i; j++) {
-
                 if (arreglo[j] > arreglo[j + 1]) {
-
                     int temp = arreglo[j];
                     arreglo[j] = arreglo[j + 1];
                     arreglo[j + 1] = temp;
-
                     swapped = true;
                 }
             }
-
             if (!swapped) {
                 break;
             }
@@ -33,9 +27,7 @@ public class MetodosOrd {
     public void sortQuick(int[] arreglo) {
 
         if (arreglo == null) {
-            throw new IllegalArgumentException(
-                "El arreglo no puede ser null."
-            );
+            throw new IllegalArgumentException("El arreglo no puede ser null.");
         }
 
         quickSort(arreglo, 0, arreglo.length - 1);
@@ -44,47 +36,33 @@ public class MetodosOrd {
     private void quickSort(int[] arreglo, int inicio, int fin) {
 
         while (inicio < fin) {
-
             int izquierda = inicio;
             int derecha = fin;
-
             int pivote = arreglo[inicio + (fin - inicio) / 2];
-
             while (izquierda <= derecha) {
-
                 while (arreglo[izquierda] < pivote) {
                     izquierda++;
                 }
-
                 while (arreglo[derecha] > pivote) {
                     derecha--;
                 }
-
                 if (izquierda <= derecha) {
-
                     int temp = arreglo[izquierda];
                     arreglo[izquierda] = arreglo[derecha];
                     arreglo[derecha] = temp;
-
                     izquierda++;
                     derecha--;
                 }
             }
-
             if (derecha - inicio < fin - izquierda) {
-
                 if (inicio < derecha) {
                     quickSort(arreglo, inicio, derecha);
                 }
-
                 inicio = izquierda;
-
             } else {
-
                 if (izquierda < fin) {
                     quickSort(arreglo, izquierda, fin);
                 }
-
                 fin = derecha;
             }
         }
@@ -99,7 +77,6 @@ public class MetodosOrd {
     public void sortComparator(
             Integer[] arreglo,
             Comparator<Integer> comparador) {
-
         Arrays.sort(arreglo, comparador);
     }
 }
