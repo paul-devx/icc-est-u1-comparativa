@@ -60,46 +60,98 @@ Una característica particular de esta implementación es que realiza una llamad
 
 ## 4. Traza manual del algoritmo
 
+Para comprobar el funcionamiento de quicksort usamos el siguiente arreglo como ejemplo.
+
+`[7, 2, 7, 0, 4, 2]`
+
+La traza sigue el comportamiento del método `quickSort()` implementado en la clase `MetodosOrd`, considerando la selección del pivote central, el movimiento de los índices izquierdo y derecho, los intercambios y el procesamiento recursivo e iterativo de los segmentos.
+
+### Primera partición: segmento [0..5]
+
 Arreglo inicial:
 
 `[7, 2, 7, 0, 4, 2]`
 
-**Primera partición**
+- Índice inicial: `inicio = 0`.
+- Índice final: `fin = 5`.
+- Pivote: `arreglo[2] = 7`.
+- Índices iniciales: `izquierda = 0` y `derecha = 5`.
 
-- Inicio: 0.
-- Fin: 5.
-- Pivote: 7.
-- Se intercambian los elementos de las posiciones 0 y 5.
-- Después se intercambian los elementos de las posiciones 2 y 4.
+**Primer intercambio:**
+
+El índice izquierdo es 7 y se detiene porque no es menor que el pivote. El índice derecho es 2 y también se detiene porque no es mayor que el pivote. Como los índices no se han cruzado, se intercambian las posiciones 0 y 5.
+
+Resultado:
+
+`[2, 2, 7, 0, 4, 7]`
+
+**Segundo intercambio:**
+
+El índice izquierdo avanza hasta la posición 2, donde el valor es 7. El índice derecho se detiene en la posición 4, donde el valor es 4. Como todavía no se han cruzado, se intercambian las posiciones 2 y 4.
 
 Resultado:
 
 `[2, 2, 4, 0, 7, 7]`
 
-**Segunda partición**
+**Finalización de la partición:**
 
-Se procesa el segmento comprendido entre los índices 0 y 3.
+El índice izquierdo avanza desde la posición 3 hasta la posición 4, porque el valor 0 es menor que el pivote. El índice derecho permanece en la posición 3. Los índices se cruzan, por lo que termina esta partición.
 
-- Pivote: 2.
-- Se intercambian los elementos de las posiciones 0 y 3.
-- Los índices continúan avanzando hasta cruzarse.
+**Llamada recursiva sobre [4..5]:**
+
+El segmento contiene los valores `[7, 7]`. Se selecciona 7 como pivote. Como ambos valores son iguales al pivote, los índices se detienen y se intercambian las posiciones 4 y 5. Después, los índices se cruzan y finaliza esta llamada recursiva.
+
+El algoritmo continúa con `fin = 3`.
+
+### Segunda partición: segmento 
+
+Arreglo actual:
+
+`[2, 2, 4, 0, 7, 7]`
+
+- Índice inicial: `inicio = 0`.
+- Índice final: `fin = 3`.
+- Pivote: `arreglo[1] = 2`.
+- Índices iniciales: `izquierda = 0` y `derecha = 3`.
+
+**Primer intercambio:**
+
+El índice izquierdo se detiene en la posición 0, donde esta el 2. El índice derecho se detiene en 3, donde encuentra el valor 0. Como los índices no se han cruzado, se intercambian las posiciones 0 y 3.
 
 Resultado:
 
 `[0, 2, 4, 2, 7, 7]`
 
-**Tercera partición**
+**Segundo intercambio:**
 
-Se procesa el segmento comprendido entre los índices 2 y 3.
+El índice izquierdo se detiene en la posición 1 porque encuentra el valor 2, igual al pivote. El índice derecho retrocede desde la posición 2 hasta la posición 1, porque el valor 4 es mayor que el pivote.
 
-- Pivote: 4.
-- Se intercambian los elementos de las posiciones 2 y 3.
+Como ambos índices coinciden en la posición 1, se realiza un intercambio del elemento consigo mismo. Luego, los índices se actualizan y se cruzan.
 
-Resultado final:
+### Tercera partición: 
+
+Arreglo actual:
+
+`[0, 2, 4, 2, 7, 7]`
+
+- Índice inicial: `inicio = 2`.
+- Índice final: `fin = 3`.
+- Pivote: `arreglo[2] = 4`.
+- Índices iniciales: `izquierda = 2` y `derecha = 3`.
+
+**Intercambio:**
+
+El índice izquierdo se detiene en la posición 2, donde encuentra el valor 4. El índice derecho se detiene en la posición 3, donde encuentra el valor 2. Como no se han cruzado, se intercambian las posiciones 2 y 3.
+
+Resultado:
 
 `[0, 2, 2, 4, 7, 7]`
 
-El arreglo queda ordenado de menor a mayor y conserva todos los elementos, incluidas las repeticiones.
+Después del intercambio, los índices se cruzan y finaliza la partición. El segmento restante tiene un solo elemento, por lo que termina el proceso.
+
+### Resultado final
+
+`[0, 2, 2, 4, 7, 7]`
 
 ## 5. Análisis de complejidad
 
@@ -119,11 +171,22 @@ El espacio adicional se utiliza principalmente en la pila de llamadas recursivas
 
 Una característica de esta implementación es que procesa recursivamente la partición más pequeña y continúa iterativamente con la más grande. Esta estrategia limita la profundidad de la recursividad a O(log n) para la implementación descrita.
 
+**Estabilidad del algoritmo**
+
+QuickSort no es un algoritmo estable en esta implementación. Esto significa que no garantiza conservar el orden relativo de elementos que tienen la misma clave.
+
+Esto sucede porque durante el proceso de partición se realizan intercambios entre posiciones del arreglo. Estos intercambios pueden modificar el orden original de elementos repetidos.
+
+
 ## 6. Caso desfavorable de la implementación
 
 En QuickSort, el peor caso temporal se produce cuando las particiones resultan muy desequilibradas de forma repetida. Esto puede provocar que el algoritmo realice una cantidad elevada de comparaciones.
 
 En esta implementación el pivote se selecciona utilizando la posición central del segmento, por lo que el comportamiento desfavorable depende de los valores presentes en esa posición y de cómo se desarrollen las particiones.
+
+Consola de pruebas de casos desfavorables de quicksort.
+
+![alt text](evidencias/assets/INVESTIGACION.png)
 
 ## 7. Relación con los resultados del benchmark
 
